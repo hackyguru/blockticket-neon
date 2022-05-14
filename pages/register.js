@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { QRCode } from "react-qrcode-logo";
 import { ethers } from "ethers";
 
-export default function register() {
+export default function Register() {
   const [ticket, setTicket] = useState(false);
   let walletaddress;
   //   let qrcontent = "somthing";
@@ -212,32 +212,30 @@ export default function register() {
 
   return (
     <div className="bg-gray-900 min-h-screen">
-      <section class="min-h-screen pt-40">
-        <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
-            <div class="lg:py-12 lg:col-span-2">
-              <h1 href="" class="text-2xl font-bold text-pink-600 mb-10">
+      <section className="min-h-screen pt-40">
+        <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+            <div className="lg:py-12 lg:col-span-2">
+              <h1 href="" className="text-2xl font-bold text-pink-600 mb-10">
                 Event details
               </h1>
-              <p class="max-w-xl text-lg text-white">
+              <p className="max-w-xl text-lg text-white">
                 Event description : The Solana Foundation Hacker House is a
                 five-day offline event with in-person guidance from core Solana
                 Labs engineers, as well as mentorship from other partners.
               </p>
-              <p class="max-w-xl text-lg text-white mt-4">
+              <p className="max-w-xl text-lg text-white mt-4">
                 Event address : Sheraton Grand, Metaluru.
               </p>
             </div>
 
             {ticket != true ? (
-              <div class="p-8 bg-gradient-to-br from-[#00D0B0] to-[#38003C] rounded-lg shadow-lg lg:p-12 lg:col-span-3">
-                <div class="space-y-4">
+              <div className="p-8 bg-gradient-to-br from-[#00D0B0] to-[#38003C] rounded-lg shadow-lg lg:p-12 lg:col-span-3">
+                <div className="space-y-4">
                   <div className="space-y-4">
-                    <label class="sr-only text-black" for="name">
-                      Name
-                    </label>
+                    <label className="sr-only text-black">Name</label>
                     <input
-                      class="w-full p-3 text-sm border-gray-200 rounded-lg"
+                      className="w-full p-3 text-sm border-gray-200 rounded-lg"
                       placeholder="Name"
                       type="text"
                       value={name}
@@ -245,13 +243,11 @@ export default function register() {
                     />
                   </div>
 
-                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 pb-10">
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pb-10">
                     <div>
-                      <label class="sr-only" for="email">
-                        Email
-                      </label>
+                      <label className="sr-only">Email</label>
                       <input
-                        class="w-full p-3 text-sm border-gray-200 rounded-lg"
+                        className="w-full p-3 text-sm border-gray-200 rounded-lg"
                         placeholder="Email address"
                         type="email"
                         id="email"
@@ -261,9 +257,9 @@ export default function register() {
                     </div>
 
                     <div>
-                      <label class="sr-only">Bio Link</label>
+                      <label className="sr-only">Bio Link</label>
                       <input
-                        class="w-full p-3 text-sm border-gray-200 rounded-lg"
+                        className="w-full p-3 text-sm border-gray-200 rounded-lg"
                         placeholder="Bio link"
                         onChange={(event) => setBio(event.target.value)}
                         value={bio}
@@ -271,18 +267,18 @@ export default function register() {
                     </div>
                   </div>
 
-                  <div class="mt-20 flex space-x-5">
+                  <div className="mt-20 flex space-x-5">
                     <button
                       onClick={() => connect()}
-                      class="inline-flex items-center justify-center w-full px-5 py-3 text-white bg-black rounded-lg sm:w-auto"
+                      className="inline-flex items-center justify-center w-full px-5 py-3 text-white bg-black rounded-lg sm:w-auto"
                     >
-                      <span class="font-medium">Complete Registration</span>
+                      <span className="font-medium">Complete Registration</span>
                     </button>
                   </div>
                 </div>
               </div>
             ) : (
-              <div class="p-8 bg-gradient-to-br from-[#00D0B0] to-[#38003C] rounded-lg shadow-lg lg:p-12 lg:col-span-3">
+              <div className="p-8 bg-gradient-to-br from-[#00D0B0] to-[#38003C] rounded-lg shadow-lg lg:p-12 lg:col-span-3">
                 <h2 className="font-bold text-lg mb-4 text-center">
                   Scan the QR for entry
                 </h2>
@@ -296,8 +292,8 @@ export default function register() {
                   />
                 </div>
                 <div className="flex justify-center items-center mt-5">
-                  <button class="inline-flex items-center justify-center w-full px-5 py-3 text-white bg-black rounded-lg sm:w-auto">
-                    <span class="font-medium">Save ticket</span>
+                  <button className="inline-flex items-center justify-center w-full px-5 py-3 text-white bg-black rounded-lg sm:w-auto">
+                    <span className="font-medium">Save ticket</span>
                   </button>
                 </div>
               </div>
