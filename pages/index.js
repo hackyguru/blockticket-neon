@@ -18,7 +18,7 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Link href="/about">
+              <Link href="/register">
                 <a className="block w-full px-12 py-3 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded sm:w-auto active:text-opacity-75 hover:bg-transparent hover:text-white focus:outline-none focus:ring">
                   Register
                 </a>
