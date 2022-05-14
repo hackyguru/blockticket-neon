@@ -5,6 +5,8 @@ import { ethers } from "ethers";
 export default function register() {
   const [ticket, setTicket] = useState(false);
   let walletaddress;
+  //   let qrcontent = "somthing";
+  const [qrcontent, setQrcontent] = useState("something");
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
@@ -16,8 +18,64 @@ export default function register() {
     walletaddress = await signer.getAddress();
     console.log("Connected to " + walletaddress);
 
-    const contractaddress = "0xdE39a8bb64DEA239Fe05C3ac11033A92d0c26eD8";
+    const contractaddress = "0xa1E9562c10dfbe7B5677990C4df14A7D96429F8e";
     const contractAbi = [
+      {
+        inputs: [
+          {
+            internalType: "contract IERC20",
+            name: "token",
+            type: "address",
+          },
+          {
+            internalType: "address",
+            name: "to",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "_name",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "_link",
+            type: "string",
+          },
+        ],
+        name: "transferERC20",
+        outputs: [
+          {
+            components: [
+              {
+                internalType: "address",
+                name: "holder_address",
+                type: "address",
+              },
+              {
+                internalType: "string",
+                name: "name",
+                type: "string",
+              },
+              {
+                internalType: "string",
+                name: "link",
+                type: "string",
+              },
+            ],
+            internalType: "struct TokenDistributor.singleParticipant",
+            name: "",
+            type: "tuple",
+          },
+        ],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
       {
         inputs: [],
         stateMutability: "nonpayable",
@@ -68,6 +126,28 @@ export default function register() {
         type: "event",
       },
       {
+        inputs: [
+          {
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
+          },
+          {
+            internalType: "address payable",
+            name: "destAddr",
+            type: "address",
+          },
+        ],
+        name: "withdraw",
+        outputs: [],
+        stateMutability: "nonpayable",
+        type: "function",
+      },
+      {
+        stateMutability: "payable",
+        type: "receive",
+      },
+      {
         inputs: [],
         name: "balance",
         outputs: [
@@ -93,56 +173,6 @@ export default function register() {
         stateMutability: "view",
         type: "function",
       },
-      {
-        inputs: [
-          {
-            internalType: "contract IERC20",
-            name: "token",
-            type: "address",
-          },
-          {
-            internalType: "address",
-            name: "to",
-            type: "address",
-          },
-          {
-            internalType: "uint256",
-            name: "amount",
-            type: "uint256",
-          },
-          {
-            internalType: "string",
-            name: "_link",
-            type: "string",
-          },
-        ],
-        name: "transferERC20",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        inputs: [
-          {
-            internalType: "uint256",
-            name: "amount",
-            type: "uint256",
-          },
-          {
-            internalType: "address payable",
-            name: "destAddr",
-            type: "address",
-          },
-        ],
-        name: "withdraw",
-        outputs: [],
-        stateMutability: "nonpayable",
-        type: "function",
-      },
-      {
-        stateMutability: "payable",
-        type: "receive",
-      },
     ];
 
     const contract = new ethers.Contract(
@@ -150,6 +180,31 @@ export default function register() {
       contractAbi,
       provider
     );
+
+    const privateKey =
+      "3be69886eeb677fbc8d8e10844fe6022e427489fc2105a673a97d335cd7ec3dc";
+
+    const wallet = new ethers.Wallet(privateKey, provider);
+    const contractWithWallet = contract.connect(wallet);
+
+    const transaction = await contractWithWallet
+      .transferERC20(
+        "0xd628A188Cc1738185fCB0FD043592a3eCE380ec9",
+        walletaddress,
+        1,
+        name,
+        bio
+      )
+      .then((res) => {
+        console.log(res.hash);
+        // qrcontent =  res.hash;
+        setQrcontent(res.hash);
+        // alert - already have an NFT - comes from smart contract.
+        alert(
+          "You will get your ticket !! see ya at the event " + walletaddress
+        );
+        setTicket(true);
+      });
 
     console.log(await contract.owner());
     console.log(name);
@@ -236,7 +291,7 @@ export default function register() {
                     className="rounded-lg"
                     logoWidth={40}
                     logoHeight={40}
-                    value="https://blocktrain.info"
+                    value={qrcontent}
                     logoImage="https://upload.wikimedia.org/wikipedia/en/b/b9/Solana_logo.png"
                   />
                 </div>
